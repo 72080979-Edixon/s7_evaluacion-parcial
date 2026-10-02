@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TicketPerú - Inicio</title>
+  <link rel="stylesheet" href="css/pagina.css">
+</head>
+<body>
+<header>
+  <h1>TicketPerú</h1>
+  <p><em>Tus entradas al mejor entretenimiento</em></p>
+  <div class="header-bar">
+    <nav>
+      <a href="html/catalogo.html">Catálogo</a>
+      <a href="../html/consulta.html">Mis entradas</a>
+      <a href="html/panel.html" id="btnPanelAdmin">Panel</a>
+      
+    </nav>
+    <div class="buscador">
+      <form id="form-busqueda">
+        <input type="text" id="input-busqueda" placeholder="Buscar evento..." required>
+        <button type="submit">🔍</button>
+      </form>
+      <div id="resultados-busqueda"></div>
+    </div>
+    <div id="sesion-usuario" class="sesion-usuario"></div>
+  </div>
+</header>
+
+<main>
+<section id="inicio">
+  <h2>Bienvenido a TicketPerú</h2>
+  <p>Compra tus entradas para conciertos, festivales, teatro y deportes en todo el Perú. Fácil, rápido y seguro.</p>
+</section>
+
+<section id="destacados">
+  <div class="carrusel" id="carrusel">
+    <div class="slide activo">
+      <img src="img/skra.jpg" alt="Shakira World Tour">
+      <div class="slide-overlay">
+        <span class="etiqueta-evento">EVENTO DESTACADO</span>
+        <h2>Shakira World Tour</h2>
+        <p>15/10/2026 · Lima</p>
+        <p class="descripcion-slide">Una noche llena de música, energía y entretenimiento.</p>
+        <button onclick="verificarSesion('Shakira_World_Tour')">Comprar entradas</button>
+      </div>
+    </div>
+
+    <div class="slide">
+      <img src="img/clpy.jpg" alt="Coldplay Live">
+      <div class="slide-overlay">
+        <span class="etiqueta-evento">EVENTO DESTACADO</span>
+        <h2>Coldplay Live</h2>
+        <p>25/10/2026 · Lima</p>
+        <p class="descripcion-slide">Disfruta una experiencia musical inolvidable.</p>
+        <button onclick="verificarSesion('Coldplay_Live')">Comprar entradas</button>
+      </div>
+    </div>
+
+    <div class="slide">
+      <img src="img/gp5.jpg" alt="Grupo 5 Fiesta Norteña">
+      <div class="slide-overlay">
+        <span class="etiqueta-evento">EVENTO DESTACADO</span>
+        <h2>Grupo 5 - Fiesta Norteña</h2>
+        <p>20/10/2026 · Chiclayo</p>
+        <p class="descripcion-slide">La mejor música norteña llega con una gran fiesta.</p>
+        <button onclick="verificarSesion('Fiesta_Norteña')">Comprar entradas</button>
+      </div>
+    </div>
+
+    <div class="slide">
+      <img src="img/festivalM.jpg" alt="Festival de Marinera">
+      <div class="slide-overlay">
+        <span class="etiqueta-evento">EVENTO DESTACADO</span>
+        <h2>Festival de Marinera</h2>
+        <p>28/10/2026 · Lima</p>
+        <p class="descripcion-slide">Celebra una de las expresiones culturales más importantes del Perú.</p>
+        <button onclick="verificarSesion('Festival_Marinera')">Comprar entradas</button>
+      </div>
+    </div>
+
+    <div class="slide">
+      <img src="img/broadway.jpg" alt="Obra de Teatro Broadway">
+      <div class="slide-overlay">
+        <span class="etiqueta-evento">EVENTO DESTACADO</span>
+        <h2>Obra de Teatro - Broadway</h2>
+        <p>05/11/2026 · Lima</p>
+        <p class="descripcion-slide">Una experiencia teatral para disfrutar en familia.</p>
+        <button onclick="verificarSesion('Obra_Teatro')">Comprar entradas</button>
+      </div>
+    </div>
+
+    <button class="flecha-carrusel anterior" onclick="cambiarSlide(-1)">‹</button>
+    <button class="flecha-carrusel siguiente" onclick="cambiarSlide(1)">›</button>
+
+    <div class="indicadores" id="indicadores">
+      <button class="indicador activo" onclick="irASlide(0)"></button>
+      <button class="indicador" onclick="irASlide(1)"></button>
+      <button class="indicador" onclick="irASlide(2)"></button>
+      <button class="indicador" onclick="irASlide(3)"></button>
+      <button class="indicador" onclick="irASlide(4)"></button>
+    </div>
+  </div>
+</section>
+
+<section id="cartelera">
+  <h2>Cartelera de eventos</h2>
+  <div class="grid-eventos">
+    <div class="evento">
+      <img src="img/skra.jpg" alt="Shakira World Tour">
+      <h3>Shakira World Tour</h3>
+      <p>15/10/2026 – Lima</p>
+      <p>Precio: S/350</p>
+      <button onclick="verificarSesion('Shakira_World_Tour')">Comprar</button>
+    </div>
+
+    <div class="evento">
+      <img src="img/clpy.jpg" alt="Coldplay Live">
+      <h3>Coldplay Live</h3>
+      <p>25/10/2026 – Lima</p>
+      <p>Precio: S/400</p>
+      <button onclick="verificarSesion('Coldplay_Live')">Comprar</button>
+    </div>
+
+    <div class="evento">
+      <img src="img/gp5.jpg" alt="Grupo 5 Fiesta Norteña">
+      <h3>Grupo 5 – Fiesta Norteña</h3>
+      <p>20/10/2026 – Chiclayo</p>
+      <p>Precio: S/120</p>
+      <button onclick="verificarSesion('Fiesta_Norteña')">Comprar</button>
+    </div>
+
+    <div class="evento">
+      <img src="img/festivalM.jpg" alt="Festival de Marinera">
+      <h3>Festival de Marinera</h3>
+      <p>28/10/2026 – Lima</p>
+      <p>Precio: S/90</p>
+      <button onclick="verificarSesion('Festival_Marinera')">Comprar</button>
+    </div>
+
+    <div class="evento">
+      <img src="img/broadway.jpg" alt="Obra de teatro">
+      <h3>Obra de Teatro – Los Miserables</h3>
+      <p>05/11/2026 – Lima</p>
+      <p>Precio: S/80</p>
+      <button onclick="verificarSesion('Obra_Teatro')">Comprar</button>
+    </div>
+
+    <div class="evento">
+      <img src="img/mrcA.jpg" alt="Musical Broadway">
+      <h3>Musical Broadway – Cats</h3>
+      <p>10/11/2026 – Lima</p>
+      <p>Precio: S/150</p>
+      <button onclick="verificarSesion('Cats_Musical')">Comprar</button>
+    </div>
+
+    <div class="evento">
+      <img src="img/gastronomico.jpg" alt="Festival Gastronómico">
+      <h3>Festival Gastronómico Peruano</h3>
+      <p>12/11/2026 – Arequipa</p>
+      <p>Precio: S/50</p>
+      <button onclick="verificarSesion('Festival_Gastronomico')">Comprar</button>
+    </div>
+
+    <div class="evento">
+      <img src="img/cine.jpg" alt="Festival de Cine">
+      <h3>Festival Internacional de Cine</h3>
+      <p>18/11/2026 – Cusco</p>
+      <p>Precio: S/70</p>
+      <button onclick="verificarSesion('Festival_Cine')">Comprar</button>
+    </div>
+
+    <div class="evento">
+      <img src="img/libro.jpg" alt="Feria del Libro">
+      <h3>Feria Internacional del Libro</h3>
+      <p>25/11/2026 – Lima</p>
+      <p>Precio: Entrada libre</p>
+      <button onclick="verificarSesion('Feria_Libro')">Reservar</button>
+    </div>
+
+    <div class="evento">
+      <img src="img/danza.jpg" alt="Festival de Danza">
+      <h3>Festival Nacional de Danza</h3>
+      <p>30/11/2026 – Cusco</p>
+      <p>Precio: S/60</p>
+      <button onclick="verificarSesion('Festival_Danza')">Comprar</button>
+    </div>
+  </div>
+</section>
+
+<section id="sobre">
+  <h2>Sobre TicketPerú</h2>
+  <p>Somos la plataforma digital líder en venta de entradas en Perú...</p>
+</section>
+
+<section id="beneficios">
+  <h2>Beneficios exclusivos</h2>
+  <ul>
+    <li>Descuentos en transporte y bebidas.</li>
+    <li>Acceso preferencial a preventas.</li>
+    <li>Asientos inclusivos para personas con discapacidad.</li>
+  </ul>
+</section>
+
+<section id="opiniones">
+  <h2>Lo que dicen nuestros usuarios</h2>
+  <blockquote>“TicketPerú me facilitó la compra de entradas...” – Ana, Lima</blockquote>
+  <blockquote>“Me encantó la opción de reventa segura...” – José, Huancayo</blockquote>
+</section>
+</main>
+
+<footer>
+  <p>&copy; 2026 TicketPerú</p>
+  <svg class="ticket-icon" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24">
+    <path d="M4 4h16v16H4z" fill="none"/>
+    <path d="M20 4H4v16h16V4zm-2 14H6V6h12v12z" fill="red"/>
+  </svg>
+</footer>
+
+<script>
+function mostrarSesion() {
+  const usuarioGuardado = sessionStorage.getItem("usuario");
+  const sesionUsuario = document.getElementById("sesion-usuario");
+  const estadoSesion = document.getElementById("estado-sesion");
+
+  if (!usuarioGuardado) {
+    sesionUsuario.innerHTML = `
+      <a href="html/login.html">
+        <button class="btn-sesion">Iniciar Sesión / Registrarse</button>
+      </a>
+    `;
+    estadoSesion.innerHTML = `
+      <a href="html/login.html">
+        <button class="btn-inicio">Iniciar Sesión / Registrarse</button>
+      </a>
+    `;
+    return;
+  }
+
+  const usuario = JSON.parse(usuarioGuardado);
+  const nombre = usuario.nombre || usuario.usuario || usuario.nombreUsuario || usuario.correo || "Usuario";
+
+  sesionUsuario.innerHTML = `
+    <span class="usuario-activo"> Hola, <strong>${nombre}</strong></span>
+    <button class="btn-cerrar" onclick="cerrarSesion()">Cerrar sesión</button>
+  `;
+
+  estadoSesion.innerHTML = `
+    <p> ¡Hola, <strong>${nombre}</strong>! Ya tienes una sesión iniciada.</p>
+    <button class="btn-cerrar" onclick="cerrarSesion()">Cerrar sesión</button>
+  `;
+}
+
+function cerrarSesion() {
+  sessionStorage.removeItem("usuario");
+  alert("Sesión cerrada correctamente.");
+  mostrarSesion();
+}
+
+function verificarSesion(evento) {
+  const usuarioGuardado = sessionStorage.getItem("usuario");
+
+  if (!usuarioGuardado) {
+    alert("Debe iniciar sesión o registrarse para comprar entradas.");
+    window.location.href = "html/login.html";
+    return;
+  }
+
+  window.location.href = `html/pago.html?evento=${evento}`;
+}
+
+const inputBusqueda =
+    document.getElementById("input-busqueda");
+
+const resultados =
+    document.getElementById("resultados-busqueda");
+
+inputBusqueda.addEventListener("input", () => {
+
+    const query =
+        inputBusqueda.value
+        .trim()
+        .toLowerCase();
+
+    resultados.innerHTML = "";
+
+    if(query.length === 0){
+        return;
+    }
+
+    const eventos =
+        document.querySelectorAll(".evento");
+
+    let encontrados = 0;
+
+    eventos.forEach(evento => {
+
+        const titulo =
+            evento.querySelector("h3")
+            .textContent;
+
+        if(
+            titulo.toLowerCase().includes(query) &&
+            encontrados < 5
+        ){
+
+            encontrados++;
+
+            const boton =
+                evento.querySelector("button");
+
+            const enlace =
+                boton.getAttribute(
+                    "onclick"
+                );
+
+            resultados.innerHTML += `
+                <div class="resultado-item">
+
+                    <a href="#"
+                       onclick="${enlace}">
+                        ${titulo}
+                    </a>
+
+                </div>
+            `;
+        }
+
+    });
+
+    if(encontrados === 0){
+
+        resultados.innerHTML = `
+            <div class="resultado-item">
+                No se encontraron resultados
+            </div>
+        `;
+    }
+
+});
+
+mostrarSesion();
+</script>
+<script src="js/auth/auth.js"></script>
+<script src="js/carrusel.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>

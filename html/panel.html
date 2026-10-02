@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrativo - TicketPerú</title>
+    <link rel="stylesheet" href="../css/panel.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>TicketPerú</h1>
+        <p>Panel Administrativo</p>
+
+        <nav>
+            <a href="../index.html">Inicio</a>
+            <button id="btnCerrarSesion">
+                Cerrar Sesión
+            </button>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="encabezado">
+            <h2>Bienvenido Administrador</h2>
+            <p>
+                Gestiona usuarios, empleados,
+                ventas, compras y entradas del sistema.
+            </p>
+        </section>
+
+        <!-- ESTADÍSTICAS -->
+
+        <section class="estadisticas">
+
+            <div class="estadistica">
+                <h3 id="totalUsuarios">0</h3>
+                <p>Usuarios Registrados</p>
+            </div>
+
+            <div class="estadistica">
+                <h3 id="totalEmpleados">0</h3>
+                <p>Empleados</p>
+            </div>
+
+            <div class="estadistica">
+                <h3 id="totalCompras">0</h3>
+                <p>Compras Realizadas</p>
+            </div>
+
+            <div class="estadistica">
+                <h3 id="totalEntradas">0</h3>
+                <p>Entradas Vendidas</p>
+            </div>
+
+        </section>
+
+        <!-- ACCIONES -->
+
+        <section class="panel-admin">
+
+            <div class="card-admin">
+                <h3> Usuarios</h3>
+                <p>Consultar usuarios registrados.</p>
+                <button id="btnUsuarios">
+                    Ver Usuarios
+                </button>
+            </div>
+
+            <div class="card-admin">
+                <h3> Compras</h3>
+                <p>Visualizar historial de compras.</p>
+                <button id="btnCompras">
+                    Ver Compras
+                </button>
+            </div>
+
+            <div class="card-admin">
+                <h3> Entradas</h3>
+                <p>Administrar entradas vendidas.</p>
+                <button id="btnEntradas">
+                    Ver Entradas
+                </button>
+            </div>
+
+            <div class="card-admin">
+                <h3> Empleados</h3>
+                <p>Gestionar personal autorizado.</p>
+                <button id="btnEmpleados">
+                    Ver Empleados
+                </button>
+            </div>
+
+        </section>
+
+        <!-- TABLA -->
+
+        <section class="tabla-seccion">
+
+            <h2>Información del Sistema</h2>
+
+            <table class="tabla-admin">
+
+                <thead id="cabeceraTabla">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Rol</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tablaDatos">
+
+                    <tr>
+                        <td colspan="4">
+                            Sin datos cargados
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>
+            © 2026 TicketPerú - Panel Administrativo
+        </p>
+    </footer>
+
+    <script type="module" src="../js/panel/panel.js"></script>
+    
+</body>
+</html>

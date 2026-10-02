@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Actualizar entrada - TicketPerú</title>
+
+    <link rel="stylesheet" href="../css/consulta.css">
+
+    <style>
+
+        .formulario-edicion {
+            max-width: 650px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,.1);
+        }
+
+        .formulario-edicion h2 {
+            color: #c62828;
+            margin-bottom: 20px;
+        }
+
+        .campo {
+            margin-bottom: 20px;
+        }
+
+        .campo label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .campo select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .datos-evento {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .botones {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .botones button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-guardar {
+            background: #c62828;
+            color: white;
+        }
+
+        .btn-cancelar {
+            background: #555;
+            color: white;
+        }
+
+        .mensaje {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .codigo-edicion {
+            background: #eee;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <h1>TicketPerú</h1>
+
+    <p><em>Actualizar entrada</em></p>
+
+    <nav>
+        <a href="../index.html">Inicio</a>
+        <a href="catalogo.html">Catálogo</a>
+        <a href="consulta.html">Mis entradas</a>
+    </nav>
+
+</header>
+
+
+<main>
+
+    <section class="encabezado">
+
+        <h2> Actualizar entrada</h2>
+
+        <p>
+            Puedes modificar tu registro mientras
+            permanezca en estado registrado.
+        </p>
+
+    </section>
+
+
+    <section class="formulario-edicion">
+
+        <div class="codigo-edicion">
+
+            <span>Código de entrada</span>
+
+            <strong id="codigo">
+                Cargando...
+            </strong>
+
+        </div>
+
+
+        <form id="form-actualizar">
+
+            <div class="campo">
+
+                <label for="evento">
+                    Evento
+                </label>
+
+                <select id="evento" required>
+                    <option value="">
+                        Selecciona un evento
+                    </option>
+                </select>
+
+            </div>
+
+
+            <div class="datos-evento">
+
+                <p id="fecha">
+                     Fecha
+                </p>
+
+                <p id="lugar">
+                     Lugar
+                </p>
+
+                <p id="precio">
+                     Precio
+                </p>
+
+            </div>
+
+
+            <div class="campo">
+
+                <label for="tipo">
+                    Tipo de operación
+                </label>
+
+                <select id="tipo" required>
+
+                    <option value="compra">
+                        Compra
+                    </option>
+
+                    <option value="reserva">
+                        Reserva
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="botones">
+
+                <button
+                    type="submit"
+                    class="btn-guardar">
+                    Guardar cambios
+                </button>
+
+                <button
+                    type="button"
+                    id="btn-cancelar"
+                    class="btn-cancelar">
+                    Cancelar entrada
+                </button>
+
+            </div>
+
+        </form>
+
+
+        <div
+            id="mensaje"
+            class="mensaje">
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <p>&copy; 2026 TicketPerú</p>
+
+</footer>
+
+
+<script type="module" src="../js/actualizar/actualizar.js"></script>
+
+</body>
+
+</html>

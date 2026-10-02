@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TicketPerú - Panel Empleado</title>
+    <link rel="stylesheet" href="../css/empleado.css">
+</head>
+
+<body>
+
+<header>
+
+    <h1>TicketPerú</h1>
+
+    <div class="header-bar">
+
+        <div class="header-usuario">
+
+            <span id="nombreEmpleado"></span>
+
+            <button onclick="cerrarSesion()">
+                Cerrar Sesión
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+<main>
+
+    <section class="panel-section">
+
+        <h2>Validar Entrada</h2>
+
+        <input
+            type="text"
+            id="codigoEntrada"
+            placeholder="Ingrese código de entrada">
+
+        <button onclick="validarEntrada()">
+            Validar Entrada
+        </button>
+
+        <div id="mensaje"></div>
+
+    </section>
+
+    <section class="panel-section">
+
+        <h2>Buscar Compra</h2>
+
+        <input
+            type="number"
+            id="idCompra"
+            placeholder="Ingrese ID de compra">
+
+        <button onclick="buscarCompra()">
+            Buscar Compra
+        </button>
+
+        <div id="resultadoCompra"></div>
+
+    </section>
+
+    <section class="panel-section">
+
+        <h2>Registrar Incidencia</h2>
+
+        <textarea
+            id="incidencia"
+            rows="5"
+            placeholder="Describa la incidencia">
+        </textarea>
+
+        <button onclick="guardarIncidencia()">
+            Registrar Incidencia
+        </button>
+
+    </section>
+
+    <section class="panel-section">
+
+        <h2>Compras Registradas</h2>
+
+        <button onclick="cargarCompras()">
+            Actualizar Lista
+        </button>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Evento</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+
+            <tbody id="tablaCompras">
+            </tbody>
+
+        </table>
+
+    </section>
+
+</main>
+
+<footer>
+    <p>&copy; 2026 TicketPerú</p>
+</footer>
+
+<script type="module" src="../js/empleado.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Compra - TicketPerú</title>
+  <link rel="stylesheet" href="../css/pago.css">
+</head>
+<body>
+
+  <header>
+    <h1>TicketPerú</h1>
+    <p><em>Pago seguro</em></p>
+    <nav>
+      <a href="../index.html">Inicio</a>
+      <a href="catalogo.html">Catálogo</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Completa tu compra</h2>
+
+    <section id="datos-evento">
+      <h3 id="nombre-evento">Cargando evento...</h3>
+      <p id="fecha-evento"></p>
+      <p id="lugar-evento"></p>
+      <p id="precio-evento"></p>
+    </section>
+
+    <form id="form-pago">
+
+      <label>Tipo de operación:
+        <select name="tipo" id="tipo" required>
+          <option value="compra">Compra</option>
+          <option value="reserva">Reserva</option>
+        </select>
+      </label>
+
+      <label>Método de pago:
+        <input type="radio" name="pago" value="tarjeta" required> Tarjeta
+        <input type="radio" name="pago" value="yape"> Yape
+        <input type="radio" name="pago" value="plin"> Plin
+      </label>
+
+      <label>Número de entradas:
+        <input type="number" name="cantidad" id="cantidad" min="1" max="10" value="1" required>
+      </label>
+
+      <p id="total">Total: S/0</p>
+
+      <button type="submit">Confirmar compra</button>
+    </form>
+
+    <div id="mensaje-confirmacion"></div>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2026 TicketPerú</p>
+  </footer>
+
+  <script type="module">
+
+    import { sql } from "../js/config/neon-config.js";
+
+    const usuarioGuardado = sessionStorage.getItem("usuario");
+
+    if (!usuarioGuardado) {
+      alert("Debes iniciar sesión para comprar una entrada.");
+      window.location.href = "login.html";
+    }
+
+    const usuario = JSON.parse(usuarioGuardado);
+
+    const params = new URLSearchParams(window.location.search);
+    const eventoSeleccionado = params.get("evento");
+
+    const eventos = {
+      "Shakira_World_Tour": {
+        nombre: "Shakira World Tour",
+        fecha: "2026-10-15",
+        fechaTexto: "15/10/2026",
+        lugar: "Lima",
+        precio: 350
+      },
+
+      "Coldplay_Live": {
+        nombre: "Coldplay Live",
+        fecha: "2026-10-25",
+        fechaTexto: "25/10/2026",
+        lugar: "Lima",
+        precio: 400
+      },
+
+      "Grupo5_Fiesta_Norteña": {
+        nombre: "Grupo 5 – Fiesta Norteña",
+        fecha: "2026-10-20",
+        fechaTexto: "20/10/2026",
+        lugar: "Chiclayo",
+        precio: 120
+      },
+
+      "Festival_Marinera": {
+        nombre: "Festival de Marinera",
+        fecha: "2026-10-28",
+        fechaTexto: "28/10/2026",
+        lugar: "Lima",
+        precio: 90
+      },
+
+      "Broadway_Teatro": {
+        nombre: "Obra de Teatro – Los Miserables",
+        fecha: "2026-11-05",
+        fechaTexto: "05/11/2026",
+        lugar: "Lima",
+        precio: 80
+      },
+
+      "Feria_Libro": {
+        nombre: "Feria Internacional del Libro",
+        fecha: "2026-11-25",
+        fechaTexto: "25/11/2026",
+        lugar: "Lima",
+        precio: 0
+      },
+
+      "Clasico_Futbol": {
+        nombre: "Clásico Alianza vs Universitario",
+        fecha: "2026-11-18",
+        fechaTexto: "18/11/2026",
+        lugar: "Lima",
+        precio: 150
+      },
+
+      "Sudamericano_Voley": {
+        nombre: "Campeonato Sudamericano de Vóley",
+        fecha: "2026-11-22",
+        fechaTexto: "22/11/2026",
+        lugar: "Trujillo",
+        precio: 100
+      }
+    };
+
+    const evento = eventos[eventoSeleccionado];
+
+    if (!evento) {
+      document.getElementById("nombre-evento").textContent =
+        "Evento no encontrado";
+    } else {
+
+      document.getElementById("nombre-evento").textContent =
+        evento.nombre;
+
+      document.getElementById("fecha-evento").textContent =
+        " Fecha: " + evento.fechaTexto;
+
+      document.getElementById("lugar-evento").textContent =
+        " Lugar: " + evento.lugar;
+
+      document.getElementById("precio-evento").textContent =
+        " Precio: S/" + evento.precio;
+
+    }
+
+    const cantidadInput =
+      document.getElementById("cantidad");
+
+    const totalTexto =
+      document.getElementById("total");
+
+    function actualizarTotal() {
+
+      const cantidad =
+        Number(cantidadInput.value);
+
+      const total =
+        evento.precio * cantidad;
+
+      totalTexto.textContent =
+        "Total: S/" + total;
+
+    }
+
+    cantidadInput.addEventListener(
+      "input",
+      actualizarTotal
+    );
+
+    actualizarTotal();
+
+    document
+  .getElementById("form-pago")
+  .addEventListener("submit", async function(e) {
+
+    e.preventDefault();
+
+    if (!evento) {
+      alert("Evento no encontrado.");
+      return;
+    }
+
+    try {
+
+      const cantidad =
+        Number(cantidadInput.value);
+
+      const tipo =
+        document.getElementById("tipo").value;
+
+      const codigoCompra =
+        "COD-" +
+        Math.floor(Math.random() * 99999999)
+          .toString()
+          .padStart(8, "0");
+
+      await sql`
+        INSERT INTO compras_entradas_eventos
+        (
+          codigo_seguimiento,
+          nombre_cliente,
+          evento,
+          tipo,
+          cantidad,
+          estado,
+          id_usuario
+        )
+        VALUES
+        (
+          ${codigoCompra},
+          ${usuario.nombre},
+          ${evento.nombre},
+          ${tipo},
+          ${cantidad},
+          'registrado',
+          ${usuario.id}
+        )
+      `;
+
+      for (let i = 0; i < cantidad; i++) {
+
+        const codigo =
+          "TP-" +
+          crypto.randomUUID()
+            .replace(/-/g, "")
+            .substring(0, 8)
+            .toUpperCase();
+
+        await sql`
+          INSERT INTO entradas
+          (
+            usuario_id,
+            evento,
+            fecha_evento,
+            lugar,
+            tipo,
+            precio,
+            codigo,
+            estado
+          )
+          VALUES
+          (
+            ${usuario.id},
+            ${evento.nombre},
+            ${evento.fecha},
+            ${evento.lugar},
+            ${tipo},
+            ${evento.precio},
+            ${codigo},
+            'valida'
+          )
+        `;
+      }
+
+      const mensaje =
+        document.getElementById(
+          "mensaje-confirmacion"
+        );
+
+      mensaje.textContent =
+        `¡${tipo.toUpperCase()} realizada correctamente!`;
+
+      mensaje.classList.add("mostrar");
+
+      setTimeout(() => {
+
+        window.location.href =
+          "consulta.html";
+
+      }, 1500);
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert(
+        "No se pudo registrar la compra."
+      );
+    }
+
+  });
+
+  </script>
+
+</body>
+</html>

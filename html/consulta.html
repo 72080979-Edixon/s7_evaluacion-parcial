@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mis entradas - TicketPerú</title>
+  <link rel="stylesheet" href="../css/consulta.css">
+</head>
+<body>
+
+  <header>
+    <h1>TicketPerú</h1>
+    <p><em>Mis entradas</em></p>
+    <nav>
+      <a href="../index.html">Inicio</a>
+      <a href="catalogo.html">Catálogo</a>
+      <button id="btn-cerrar">Cerrar sesión</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="encabezado">
+      <h2> Mis entradas</h2>
+      <p id="saludo"></p>
+    </section>
+
+    <section id="lista-entradas" class="lista-entradas">
+      <p class="cargando">Cargando tus entradas...</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 TicketPerú</p>
+  </footer>
+
+  <script type="module">
+    import { sql } from "../js/config/neon-config.js";
+
+    const usuarioGuardado = sessionStorage.getItem("usuario");
+
+    if (!usuarioGuardado) {
+      alert("Debes iniciar sesión para ver tus entradas.");
+      window.location.href = "login.html";
+    } else {
+      const usuario = JSON.parse(usuarioGuardado);
+      document.getElementById("saludo").textContent =
+        `Hola, ${usuario.nombre}. Aquí puedes consultar tus entradas.`;
+      cargarEntradas(usuario.id);
+    }
+
+    async function cargarEntradas(usuarioId) {
+      const contenedor = document.getElementById("lista-entradas");
+
+      try {
+        const entradas = await sql`
+          SELECT id, evento, fecha_evento, lugar, tipo, precio, codigo, estado, fecha_compra
+          FROM entradas
+          WHERE usuario_id = ${usuarioId}
+          ORDER BY fecha_compra DESC
+        `;
+
+        if (entradas.length === 0) {
+          contenedor.innerHTML = `
+            <div class="sin-entradas">
+              <h3> Aún no tienes entradas</h3>
+              <p>Cuando realices una compra, tus entradas aparecerán aquí.</p>
+              <a href="catalogo.html">
+                <button>Ver catálogo</button>
+              </a>
+            </div>
+          `;
+          return;
+        }
+
+        contenedor.innerHTML = "";
+
+        entradas.forEach(entrada => {
+          const fecha = new Date(entrada.fecha_evento).toLocaleDateString("es-PE");
+          const estado = entrada.estado.toLowerCase();
+
+          let claseEstado = "estado-valida";
+          let textoEstado = "🟢 Registrada";
+
+          if (estado === "utilizada") {
+            claseEstado = "estado-utilizada";
+            textoEstado = "🟡 Utilizada";
+          }
+
+          if (estado === "cancelada") {
+            claseEstado = "estado-cancelada";
+            textoEstado = "🔴 Cancelada";
+          }
+
+          const tarjeta = document.createElement("article");
+          tarjeta.className = "entrada";
+
+          tarjeta.innerHTML = `
+            <div class="entrada-superior">
+              <span class="logo-ticket"> TicketPerú</span>
+              <span class="${claseEstado}">${textoEstado}</span>
+            </div>
+
+            <div class="entrada-contenido">
+              <h3>${entrada.evento}</h3>
+              <p> ${fecha}</p>
+              <p> ${entrada.lugar}</p>
+              <p> Tipo: ${entrada.tipo}</p>
+              <p> Precio: S/${entrada.precio}</p>
+
+              <div class="codigo">
+                <span>Código de entrada</span>
+                <strong>${entrada.codigo}</strong>
+              </div>
+            </div>
+
+            <div class="entrada-acciones">
+
+            <button onclick="mostrarCodigo('${entrada.codigo}')">
+              Ver código
+            </button>
+
+            <button onclick="editarEntrada(${entrada.id})">
+              Editar
+            </button>
+
+            </div>
+          `;
+
+          contenedor.appendChild(tarjeta);
+        });
+
+      } catch (error) {
+        console.error(error);
+
+        contenedor.innerHTML = `
+          <div class="error">
+            <h3> No se pudieron cargar tus entradas</h3>
+            <p>Intenta nuevamente más tarde.</p>
+          </div>
+        `;
+      }
+    }
+
+    window.mostrarCodigo = function(codigo) {
+      alert(
+        " Código de entrada\n\n" +
+        codigo +
+        "\n\nPresenta este código al personal de TicketPerú."
+      );
+    };
+
+    window.editarEntrada = function(id) {
+      window.location.href = `actualizar.html?id=${id}`;
+    };
+
+    document.getElementById("btn-cerrar").addEventListener("click", () => {
+      sessionStorage.removeItem("usuario");
+      window.location.href = "login.html";
+    });
+  </script>
+
+</body>
+</html>
