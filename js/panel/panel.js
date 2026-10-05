@@ -73,9 +73,17 @@ async function mostrarUsuarios() {
                 <td>${u.nombre}</td>
                 <td>${u.correo}</td>
                 <td>${u.rol}</td>
-                <td>
-                <buttoNclass="btn-eliminar"onclick="eliminarUsuario(${u.id})">Eliminar</button>
-                </td>
+               <td>
+
+    <button
+        class="btn-eliminar"
+        onclick="eliminarUsuario(${u.id})">
+
+        Eliminar
+
+    </button>
+
+</td>
             </tr>
         `;
     });
