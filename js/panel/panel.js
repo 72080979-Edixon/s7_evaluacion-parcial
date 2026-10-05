@@ -6,7 +6,11 @@ if (!usuario) {
     window.location.href = "../html/login.html";
 }
 
-if (usuario.rol !== "administrador" && usuario.rol !== "admin") {
+if (
+    usuario.rol !== "administrador" &&
+    usuario.rol !== "admin" &&
+    usuario.rol !== "empleado"
+) {
     alert("Acceso denegado");
     window.location.href = "../html/catalogo.html";
 }
@@ -14,7 +18,37 @@ if (usuario.rol !== "administrador" && usuario.rol !== "admin") {
 const titulo = document.querySelector(".encabezado h2");
 
 if (titulo) {
-    titulo.textContent = `Bienvenido ${usuario.nombre}`;
+
+    if (usuario.rol === "empleado") {
+
+        titulo.textContent =
+            `Panel de Empleado - ${usuario.nombre}`;
+
+    } else {
+
+        titulo.textContent =
+            `Panel de Administrador - ${usuario.nombre}`;
+    }
+}
+
+if (usuario.rol === "empleado") {
+
+    window.addEventListener("load", () => {
+
+        document.getElementById("btnUsuarios")
+            ?.parentElement.style.setProperty(
+                "display",
+                "none"
+            );
+
+        document.getElementById("btnEmpleados")
+            ?.parentElement.style.setProperty(
+                "display",
+                "none"
+            );
+
+    });
+
 }
 
 document.getElementById("btnCerrarSesion")?.addEventListener("click", () => {
