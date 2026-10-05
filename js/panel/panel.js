@@ -53,6 +53,7 @@ async function mostrarUsuarios() {
             <th>Nombre</th>
             <th>Correo</th>
             <th>Rol</th>
+            <th>Acciones</th>
         </tr>
     `;
 
@@ -72,6 +73,9 @@ async function mostrarUsuarios() {
                 <td>${u.nombre}</td>
                 <td>${u.correo}</td>
                 <td>${u.rol}</td>
+                <td>
+                <buttoNclass="btn-eliminar"onclick="eliminarUsuario(${u.id})">Eliminar</button>
+                </td>
             </tr>
         `;
     });
@@ -346,6 +350,39 @@ console.error(error);
 }
 }
 
+async function eliminarUsuario(id){
+
+    const confirmar = confirm(
+        "¿Eliminar usuario?"
+    );
+
+    if(!confirmar) return;
+
+    try{
+
+        await sql`
+            UPDATE usuarios
+            SET activo = FALSE
+            WHERE id = ${id}
+        `;
+
+        alert(
+            "Usuario eliminado correctamente"
+        );
+
+        mostrarUsuarios();
+
+        cargarEstadisticas();
+
+    }catch(error){
+
+        console.error(error);
+
+        alert(
+            "No se pudo eliminar el usuario"
+        );
+    }
+}
 /* =========================
    BOTONES
 ========================= */
@@ -363,6 +400,7 @@ window.editarCompra = editarCompra;
 window.eliminarCompra = eliminarCompra;
 window.editarEntrada = editarEntrada;
 window.eliminarEntrada = eliminarEntrada;
+window.eliminarUsuario = eliminarUsuario;
 
 /* =========================
    INICIO
