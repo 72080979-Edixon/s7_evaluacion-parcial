@@ -13,13 +13,59 @@ export async function registrarUsuario(nombre, correo, contrasena) {
 
 export async function iniciarSesion(correo, contrasena) {
     const usuario = await sql`
-        SELECT id,nombre,rol
+        SELECT
+        id,
+        nombre,
+        correo,
+        rol,
+        turno,
+        hora_inicio,
+        hora_fin
         FROM usuarios
         WHERE correo = ${correo}
         AND contrasena = ${contrasena}
     `;
 
     if (usuario.length === 0) return null;
+        const datosUsuario = usuario[0];
+
+        if(datosUsuario.rol === "empleado"){
+
+        const horaActual =
+            new Date().getHours();
+
+        const horaInicio =
+            Number(
+                datosUsuario.hora_inicio
+                .split(":")[0]
+            );
+
+        const horaFin =
+            Number(
+                datosUsuario.hora_fin
+                .split(":")[0]
+            );
+
+        if(
+            horaActual < horaInicio ||
+            horaActual >= horaFin
+        ){
+
+        alert(
+            `Turno no disponible.
+
+            Turno: ${datosUsuario.turno}
+
+            Horario:
+        ${datosUsuario.hora_inicio}
+        -
+        ${datosUsuario.hora_fin}`
+        );
+
+        return null;
+    }
+
+}
 
     sessionStorage.setItem(
         "usuario",
