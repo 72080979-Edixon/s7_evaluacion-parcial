@@ -28,8 +28,19 @@ document.getElementById("btnCerrarSesion")?.addEventListener("click", () => {
 
 async function cargarEstadisticas() {
     try {
-        const usuarios = await sql`SELECT * FROM usuarios`;
-        const empleados = await sql`SELECT * FROM usuarios WHERE rol='empleado'`;
+        const usuarios =
+    await sql`
+        SELECT *
+        FROM usuarios
+        WHERE activo = TRUE
+    `;
+        const empleados =
+    await sql`
+        SELECT *
+        FROM usuarios
+        WHERE rol='empleado'
+        AND activo = TRUE
+    `;
         const compras = await sql`SELECT * FROM compras_entradas_eventos`;
         const entradas = await sql`SELECT * FROM entradas`;
 
@@ -60,6 +71,7 @@ async function mostrarUsuarios() {
     const usuarios = await sql`
         SELECT id,nombre,correo,rol
         FROM usuarios
+        WHERE activo = TRUE
         ORDER BY id
     `;
 
@@ -107,6 +119,7 @@ async function mostrarEmpleados() {
         SELECT id,nombre,correo,rol
         FROM usuarios
         WHERE rol='empleado'
+        AND activo = TRUE
         ORDER BY id
     `;
 
