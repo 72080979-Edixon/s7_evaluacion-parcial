@@ -29,46 +29,47 @@ export async function iniciarSesion(correo, contrasena) {
     if (usuario.length === 0) return null;
         const datosUsuario = usuario[0];
 
-        if(datosUsuario.rol === "empleado"){
-
-        const horaActual =
-            new Date().getHours();
-
-        const horaInicio =
-            Number(
-                datosUsuario.hora_inicio
-                .split(":")[0]
-            );
-
-        const horaFin =
-            Number(
-                datosUsuario.hora_fin
-                .split(":")[0]
-            );
-
         if(
-    horaActual < horaInicio ||
-    horaActual >= horaFin
+    datosUsuario.rol === "empleado" &&
+    datosUsuario.hora_inicio &&
+    datosUsuario.hora_fin
 ){
 
-    alert(
-        `Fuera de horario.
+    const horaActual =
+        new Date().getHours();
+
+    const horaInicio =
+        Number(
+            datosUsuario.hora_inicio
+            .split(":")[0]
+        );
+
+    const horaFin =
+        Number(
+            datosUsuario.hora_fin
+            .split(":")[0]
+        );
+
+    if(
+        horaActual < horaInicio ||
+        horaActual >= horaFin
+    ){
+
+        alert(
+            `Fuera de horario.
 
 Turno: ${datosUsuario.turno}
 
-Horario:
-${datosUsuario.hora_inicio}
--
-${datosUsuario.hora_fin}
-
 Ingresará en modo consulta.`
-    );
+        );
 
-    datosUsuario.fueraHorario = true;
+        datosUsuario.fueraHorario = true;
 
-}else{
+    }else{
 
-    datosUsuario.fueraHorario = false;
+        datosUsuario.fueraHorario = false;
+    }
+
 }
 
 }
@@ -78,6 +79,16 @@ sessionStorage.setItem(
 );
 
 return datosUsuario;
+
+} // <- cierre de iniciarSesion()
+
+} // <-- Cierra iniciarSesion aquí
+
+/* CERRAR */
+export function cerrarSesion() {
+    sessionStorage.removeItem("usuario");
+    window.location.href = "login.html";
+}
 
 /* CERRAR */
 
