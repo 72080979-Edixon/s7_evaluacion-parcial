@@ -2,6 +2,29 @@ import { sql } from "../config/neon-config.js";
 
 const usuario = JSON.parse(sessionStorage.getItem("usuario"));
 
+window.addEventListener("DOMContentLoaded", () => {
+
+    const btnEmpleado =
+        document.getElementById(
+            "btnEmpleado"
+        );
+
+    if(!btnEmpleado) return;
+
+    if(usuario.rol === "empleado"){
+
+        btnEmpleado.style.display =
+            "inline-block";
+
+    }else{
+
+        btnEmpleado.style.display =
+            "none";
+
+    }
+
+});
+
 if (!usuario) {
     window.location.href = "../html/login.html";
 }
