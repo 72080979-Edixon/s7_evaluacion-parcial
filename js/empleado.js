@@ -85,24 +85,34 @@ document
 ========================= */
 
 async function validarEntrada() {
-
-    const codigo =
-        document.getElementById("codigoEntrada")
-        .value
-        .trim();
-
-    const mensaje =
-        document.getElementById("mensaje");
-
-    if (!codigo) {
-
-        mensaje.className = "estado-error";
-        mensaje.textContent =
-            "Ingrese un código.";
-
-        return;
-    }
-
+ 
+if(usuario.fueraHorario){
+ 
+alert(
+"No puede validar entradas fuera de su horario."
+);
+ 
+return;
+}
+ 
+const codigo =
+document.getElementById("codigoEntrada")
+.value
+.trim();
+ 
+const mensaje =
+document.getElementById("mensaje");
+ 
+if (!codigo) {
+ 
+mensaje.className =
+"estado-error";
+ 
+mensaje.textContent =
+"Ingrese un código.";
+ 
+return;
+}
     try {
 
         const entrada = await sql`
