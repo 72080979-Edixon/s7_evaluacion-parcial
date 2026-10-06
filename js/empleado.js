@@ -65,6 +65,12 @@ window.location.href =
 }
 
 window.cerrarSesion = cerrarSesion;
+document
+    .getElementById("btnCerrarSesion")
+    ?.addEventListener(
+        "click",
+        cerrarSesion
+    );
 
 /* =========================
    VALIDAR ENTRADA
