@@ -25,6 +25,21 @@ document.addEventListener("DOMContentLoaded", () => {
         nombreEmpleado.textContent =
             `👤 ${usuario.nombre}`;
     }
+    const btnPanel =
+    document.getElementById(
+        "btnPanel"
+    );
+
+if (
+    usuario.rol === "empleado" ||
+    usuario.rol === "administrador" ||
+    usuario.rol === "admin"
+) {
+
+    btnPanel.style.display =
+        "inline-block";
+
+}
 
     cargarCompras();
 });
