@@ -220,7 +220,7 @@ backdrop-filter:blur(5px);
 animation:aparecerSesion .5s ease;
 }
 
-.btnPanelAdmin{
+#btnPanelAdmin{
     display:none;
 }
 
