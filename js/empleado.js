@@ -4,6 +4,14 @@ console.log("Empleado.js cargado");
 
 const usuario = JSON.parse(sessionStorage.getItem("usuario"));
 
+if(usuario.fueraHorario){
+
+    alert(
+        "Modo consulta activado. Las acciones de validación están deshabilitadas."
+    );
+
+}
+
 if (!usuario) {
     window.location.href = "../index.html";
 }
