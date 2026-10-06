@@ -273,9 +273,13 @@ function mostrarSesion() {
 }
 
 function cerrarSesion() {
-  sessionStorage.removeItem("usuario");
-  alert("Sesión cerrada correctamente.");
-  mostrarSesion();
+
+    sessionStorage.removeItem(
+        "usuario"
+    );
+
+    window.location.href =
+        "html/login.html";
 }
 
 function verificarSesion(evento) {
