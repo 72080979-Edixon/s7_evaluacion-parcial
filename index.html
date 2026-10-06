@@ -239,6 +239,26 @@ function mostrarSesion() {
   }
 
   const usuario = JSON.parse(usuarioGuardado);
+  
+  const btnPanel =
+  document.getElementById(
+  "btnPanelAdmin"
+  );
+ 
+  if(
+  usuario.rol === "administrador" ||
+  usuario.rol === "admin" ||
+  usuario.rol === "empleado"
+  ){
+ 
+  btnPanel.style.display =
+  "inline-block";
+ 
+  }else{
+ 
+  btnPanel.style.display =
+  "none";
+  }
   const nombre = usuario.nombre || usuario.usuario || usuario.nombreUsuario || usuario.correo || "Usuario";
 
   sesionUsuario.innerHTML = `
