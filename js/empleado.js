@@ -117,7 +117,9 @@ async function validarEntrada() {
 
         await sql`
             UPDATE entradas
-            SET usada = TRUE
+            SET
+                usada = TRUE,
+                estado = 'atendido'
             WHERE codigo = ${codigo}
         `;
 
