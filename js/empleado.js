@@ -258,6 +258,15 @@ window.buscarCompra =
 
 async function guardarIncidencia() {
 
+    if(usuario.fueraHorario){
+
+        alert(
+            "No puede registrar incidencias fuera de horario."
+        );
+
+        return;
+    }
+
     const incidencia = document
         .getElementById("incidencia")
         .value
