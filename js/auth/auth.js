@@ -10,31 +10,36 @@ export async function registrarUsuario(nombre, correo, contrasena) {
 }
 
 /* LOGIN */
+
 export async function iniciarSesion(correo, contrasena) {
 
     const usuario = await sql`
         SELECT
-        id,
-        nombre,
-        correo,
-        rol,
-        turno,
-        hora_inicio,
-        hora_fin
+            id,
+            nombre,
+            correo,
+            rol,
+            turno,
+            hora_inicio,
+            hora_fin
         FROM usuarios
         WHERE correo = ${correo}
         AND contrasena = ${contrasena}
     `;
 
-    if (usuario.length === 0) return null;
+    if (usuario.length === 0) {
+        return null;
+    }
 
     const datosUsuario = usuario[0];
 
-    if(
+    datosUsuario.fueraHorario = false;
+
+    if (
         datosUsuario.rol === "empleado" &&
         datosUsuario.hora_inicio &&
         datosUsuario.hora_fin
-    ){
+    ) {
 
         const horaActual =
             new Date().getHours();
@@ -42,19 +47,19 @@ export async function iniciarSesion(correo, contrasena) {
         const horaInicio =
             Number(
                 datosUsuario.hora_inicio
-                .split(":")[0]
+                    .split(":")[0]
             );
 
         const horaFin =
             Number(
                 datosUsuario.hora_fin
-                .split(":")[0]
+                    .split(":")[0]
             );
 
-        if(
+        if (
             horaActual < horaInicio ||
             horaActual >= horaFin
-        ){
+        ) {
 
             alert(
                 `Fuera de horario.
@@ -80,11 +85,8 @@ Ingresará en modo consulta.`
     return datosUsuario;
 }
 
-} // <- cierre de iniciarSesion()
-
-} // <-- Cierra iniciarSesion aquí
-
 /* CERRAR */
+
 export function cerrarSesion() {
     sessionStorage.removeItem("usuario");
     window.location.href = "login.html";
@@ -93,11 +95,15 @@ export function cerrarSesion() {
 /* SESIÓN */
 
 export function exigirSesion() {
+
     const usuario =
         sessionStorage.getItem("usuario");
 
     if (!usuario) {
-        window.location.href = "login.html";
+
+        window.location.href =
+            "login.html";
+
         return null;
     }
 
