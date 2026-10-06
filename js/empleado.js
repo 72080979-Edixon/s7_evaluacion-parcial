@@ -126,12 +126,12 @@ async function validarEntrada() {
         }
 
         await sql`
-            UPDATE entradas
-            SET
-                usada = TRUE,
-                estado = 'atendido'
-            WHERE codigo = ${codigo}
-        `;
+    UPDATE entradas
+    SET
+        usada = TRUE,
+        estado = 'validada'
+    WHERE codigo = ${codigo}
+`;
 
         mensaje.className =
             "estado-correcto";
