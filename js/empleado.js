@@ -8,7 +8,11 @@ if (!usuario) {
     window.location.href = "../index.html";
 }
 
-if (usuario.rol !== "empleado") {
+if (
+    usuario.rol !== "empleado" &&
+    usuario.rol !== "administrador" &&
+    usuario.rol !== "admin"
+) {
     alert("Acceso no autorizado");
     window.location.href = "../index.html";
 }
