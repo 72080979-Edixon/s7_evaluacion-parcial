@@ -49,15 +49,19 @@ if (
 ========================= */
 
 function cerrarSesion() {
-
-    if (!confirm("¿Desea cerrar sesión?")) {
-        return;
-    }
-
-    sessionStorage.removeItem("usuario");
-
-    window.location.href =
-        "../index.html";
+ 
+if (!confirm(
+"¿Desea cerrar sesión?"
+)) {
+return;
+}
+ 
+sessionStorage.removeItem(
+"usuario"
+);
+ 
+window.location.href =
+"../html/login.html";
 }
 
 window.cerrarSesion = cerrarSesion;
