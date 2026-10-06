@@ -61,7 +61,7 @@ sessionStorage.removeItem(
 );
  
 window.location.href =
-"../html/login.html";
+    "../html/login.html";
 }
 
 window.cerrarSesion = cerrarSesion;
