@@ -47,33 +47,37 @@ export async function iniciarSesion(correo, contrasena) {
             );
 
         if(
-            horaActual < horaInicio ||
-            horaActual >= horaFin
-        ){
+    horaActual < horaInicio ||
+    horaActual >= horaFin
+){
 
-        alert(
-            `Turno no disponible.
+    alert(
+        `Fuera de horario.
 
-            Turno: ${datosUsuario.turno}
+Turno: ${datosUsuario.turno}
 
-            Horario:
-        ${datosUsuario.hora_inicio}
-        -
-        ${datosUsuario.hora_fin}`
-        );
+Horario:
+${datosUsuario.hora_inicio}
+-
+${datosUsuario.hora_fin}
 
-        return null;
-    }
-
-}
-
-    sessionStorage.setItem(
-        "usuario",
-        JSON.stringify(usuario[0])
+Ingresará en modo consulta.`
     );
 
-    return usuario[0];
+    datosUsuario.fueraHorario = true;
+
+}else{
+
+    datosUsuario.fueraHorario = false;
 }
+
+}
+sessionStorage.setItem(
+    "usuario",
+    JSON.stringify(datosUsuario)
+);
+
+return datosUsuario;
 
 /* CERRAR */
 
